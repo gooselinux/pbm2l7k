@@ -1,0 +1,26 @@
+Look for the prologues in system-wide scope.
+(Lubomir Kundrak <lkundrak@redhat.com>)
+
+--- pbm2l7k.c.orig	2007-06-08 12:05:53.000000000 +0200
++++ pbm2l7k.c	2007-06-08 12:29:56.000000000 +0200
+@@ -21,12 +21,16 @@
+                 /* temporarily set to 5700 */
+ 
+ struct lx_smodel{
+-   char printer_name[16];
+-   char prologoue_name[64];
++   char *printer_name;
++   char *prologoue_name;
+ };
+ 
+-struct lx_smodel lx[]={{"Lexmark 7000","pr7000.prn"},
+-                            {"Lexmark 5700","pr5700.prn"}};
++#ifndef DATADIR
++# define DATADIR "/usr/share/pbm2l7k"
++#endif
++
++struct lx_smodel lx[]={{"Lexmark 7000", DATADIR"/pr7000.prn"},
++                            {"Lexmark 5700", DATADIR"/pr5700.prn"}};
+ 
+ 
+ 
